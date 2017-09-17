@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const app = express();
 
 // Create connection
 const db = mysql.createConnection({
@@ -15,13 +16,11 @@ const db = mysql.createConnection({
 	database: 'sql11194951'
 });
 
-// Connect
+// Connect to database
 db.connect((err) => {
 	if (err) throw err;
 	console.log('MySql Connected...');
 });
-
-const app = express();
 
 // Support CORS and json encoded bodies
 app.use(function(req, res, next) {
@@ -37,15 +36,12 @@ app.listen(process.env.PORT || '3000', () => {
 	console.log('Server started...');
 });
 
-
-
 // Get tasks
-app.post('/gettasks/', (req, res) => {
-	console.log(req.body);
+app.post('/gettasks', (req, res) => {
 	let sortType = req.body.sortType;
 	let filterDifficultyType = (req.body.filterDifficultyType) ? '= ' + req.body.filterDifficultyType : 'IS NOT NULL';
 	let filterDeadlineType = (req.body.filterDeadlineType) ? '= ' + req.body.filterDeadlineType : 'IS NOT NULL';
-	let sql = 'SELECT * FROM tasks WHERE difficulty ' + filterDifficultyType + ' AND deadline ' + filterDeadlineType + ' ORDER BY ' + sortType;
+	let sql = `SELECT * FROM tasks WHERE difficulty ${filterDifficultyType} AND deadline ${filterDeadlineType} ORDER BY ${sortType}`;
 	let query = db.query(sql, (err, results) => {
 		if (err) throw err;
 		res.send(results);
@@ -58,7 +54,7 @@ app.post('/addtask', (req, res) => {
 		description: req.body.description,
 		difficulty: req.body.difficulty,
 		deadline: req.body.deadline,
-		done: req.body.description
+		done: 0
 	};
 	let sql = 'INSERT INTO tasks SET ?';
 	let query = db.query(sql, task, (err, result) => {
@@ -68,11 +64,12 @@ app.post('/addtask', (req, res) => {
 });
 
 // Update task
-app.post('/updatetask/', (req, res) => {
-	let newDescription = req.body.description;
-	let newDifficulty = req.body.difficulty;
-	let newDeadline = req.body.deadline;
-	let sql = `UPDATE tasks SET description = '${newDescription}', difficulty = '${newDifficulty}', deadline = '${newDeadline}' WHERE id = ${req.body.id}`;
+app.post('/updatetask', (req, res) => {
+	let id = req.body.id;
+	let newDescription = req.body.newDescription;
+	let newDifficulty = req.body.newDifficulty;
+	let newDeadline = req.body.newDeadline;
+	let sql = `UPDATE tasks SET description = '${newDescription}', difficulty = '${newDifficulty}', deadline = '${newDeadline}' WHERE id = ${id}`;
 	let query = db.query(sql, (err, result) => {
 		if (err) throw err;
 		res.send('Task updated...');
@@ -103,17 +100,5 @@ app.get('/deletetask/:id', (req, res) => {
 	let query = db.query(sql, (err, result) => {
 		if (err) throw err;
 		res.send('Task deleted...');
-	});
-});
-
-
-
-
-// Create table
-app.get('/createtasktable', (req, res) => {
-	let sql = 'CREATE TABLE tasks (id int(11) NOT NULL, description varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL, difficulty tinyint(4) NOT NULL, deadline tinyint(4) NOT NULL, done tinyint(1) NOT NULL)';
-	db.query(sql, (err, result) => {
-		if (err) throw err;
-		res.send('Tasks table created...');
 	});
 });
