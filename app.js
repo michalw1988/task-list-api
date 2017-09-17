@@ -8,10 +8,11 @@ const db = mysql.createConnection({
 	// user: 'root',
 	// password: '',
 	// database: 'tasklist'
-	host: 'mwisniewski.5gbfree.com',
-	user: 'mwisniew_root',
-	password: 'mwisniew_root',
-	database: 'mwisniew_tasks'
+	host: 'sql11.freesqldatabase.com',
+	port: '3306',
+	user: 'sql11194951',
+	password: 'htvwchFuIM',
+	database: 'sql11194951'
 });
 
 // Connect
@@ -110,7 +111,7 @@ app.get('/deletetask/:id', (req, res) => {
 
 // Create table
 app.get('/createtasktable', (req, res) => {
-	let sql = 'CREATE TABLE yeti (id int(11) NOT NULL, description varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL, difficulty tinyint(4) NOT NULL, deadline tinyint(4) NOT NULL, done tinyint(1) NOT NULL)';
+	let sql = 'CREATE TABLE tasks (id int(11) NOT NULL, description varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL, difficulty tinyint(4) NOT NULL, deadline tinyint(4) NOT NULL, done tinyint(1) NOT NULL)';
 	db.query(sql, (err, result) => {
 		if (err) throw err;
 		res.send('Tasks table created...');
