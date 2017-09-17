@@ -8,7 +8,7 @@ const db = mysql.createConnection({
 	// user: 'root',
 	// password: '',
 	// database: 'tasklist'
-	host: '209.90.88.139',
+	host: 'mwisniewski.5gbfree.com',
 	user: 'mwisniew_root',
 	password: 'mwisniew_root',
 	database: 'mwisniew_tasks'
