@@ -4,9 +4,13 @@ Simple REST API that allows the user to edit his task list.
 
 Built on node.js and connected to MySQL database. The database provider is freesqldatabase.com.
 
-## API urls
+## API documentation
 
-### POST:
+### Base URL:
+
+https://tasklistapi.herokuapp.com
+
+### POST endpoints:
 
 **/gettasks**
 
@@ -36,7 +40,7 @@ Parameters:
 * newDifficulty - '1' | '2' | '3' - new task difficulty ('1' - easy, '2' - medium, '3' - hard)
 * newDeadline - '1' | '2' | '3' | '4' - new task deadline ('1' - today, '2' - this week, '3' - this month, '4' - long term goal)
 
-### GET:
+### GET endpoints:
 
 **/completetask/:id**
 
@@ -52,4 +56,4 @@ Removes a task with given id.
 
 ## Example application:
 
-An example application that uses that API can be found under the following url: http://mwisniewski.5gbfree.com/task-list/
+An example application that uses that API can be found under the following URL: http://mwisniewski.5gbfree.com/task-list/
