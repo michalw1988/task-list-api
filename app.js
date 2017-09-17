@@ -69,7 +69,7 @@ app.post('/updatetask', (req, res) => {
 	let newDescription = req.body.newDescription;
 	let newDifficulty = req.body.newDifficulty;
 	let newDeadline = req.body.newDeadline;
-	let sql = `UPDATE tasks SET description = "${newDescription}", difficulty = ${newDifficulty}, deadline = ${newDeadline} WHERE id = ${id}`;
+	let sql = `UPDATE tasks SET description = "${newDescription}", difficulty = "${newDifficulty}", deadline = "${newDeadline}" WHERE id = "${id}"`;
 	let query = db.query(sql, (err, result) => {
 		if (err) throw err;
 		res.send('Task updated...');
