@@ -4,14 +4,14 @@ const bodyParser = require('body-parser');
 
 // Create connection
 const db = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: '',
-	database: 'tasklist'
-	// host: '209.90.88.139',
-	// user: 'mwisniew_root',
-	// password: 'mwisniew_root',
-	// database: 'mwisniew_tasks'
+	// host: 'localhost',
+	// user: 'root',
+	// password: '',
+	// database: 'tasklist'
+	host: '209.90.88.139',
+	user: 'mwisniew_root',
+	password: 'mwisniew_root',
+	database: 'mwisniew_tasks'
 });
 
 // Connect
